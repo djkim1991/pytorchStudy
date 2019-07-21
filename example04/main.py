@@ -16,6 +16,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
+
 class Example:
 
     # conv2d, example of torch.nn.functional
