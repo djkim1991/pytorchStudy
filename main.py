@@ -10,5 +10,5 @@ import example04.main as ex04
 # ex03.Example.funational_conv2d()
 # ex03.Example.conv2d()
 
-# ex04.Example.load_data()
+ex04.Example.load_data()
 
