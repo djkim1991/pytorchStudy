@@ -3,6 +3,7 @@ import example02.main as ex02
 import example03.main as ex03
 import example04.main as ex04
 import example05.main as ex05
+import example06.main as ex06
 
 # ex01.Example.introduce()
 
@@ -13,5 +14,7 @@ import example05.main as ex05
 
 # ex04.Example.load_data()
 
-ex05.Example.forward_example()
+# ex05.Example.forward_example()
+
+ex06.Example.learning_example()
 

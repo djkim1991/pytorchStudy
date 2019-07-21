@@ -10,7 +10,7 @@ class Example:
     @staticmethod
     def forward_example():
         network = MyNeuralNetwork()
-        train_loader, test_loader = network.load_data()
+        train_loader, test_loader = MyNeuralNetwork.load_data()
 
         test_iter = iter(test_loader)
         images, labels = test_iter.next()
