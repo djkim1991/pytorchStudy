@@ -1,20 +1,37 @@
 '''
     writer: dororongju
-    github: https://github.com/djkim1991/pytorchStudy/issues/4
+    github: https://github.com/djkim1991/pytorchStudy/issues/6
 '''
-
+import torch.nn as nn
+import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 
 import torchvision
 import torchvision.transforms as transforms
 
-import numpy as np
-import matplotlib.pyplot as plt
 
+class MyNeuralNetwork(nn.Module):
+    def __init__(self):
+        super(MyNeuralNetwork, self).__init__()
 
-class Example:
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5)
+        self.conv2 = nn.Conv2d(in_channels=64, out_channels=30, kernel_size=5)
+        self.fc1 = nn.Linear(in_features=30*5*5, out_features=128, bias=True)
+        self.fc2 = nn.Linear(in_features=128, out_features=10, bias=True)
 
-    # conv2d, example of torch.nn.functional
+    def forward(self, x):
+        x = F.relu(self.conv1(x), inplace=True)
+        x = F.max_pool2d(x, (2, 2))
+
+        x = F.relu(self.conv2(x), inplace=True)
+        x = F.max_pool2d(x, (2, 2))
+
+        x = x.view(x.shape[0], -1)
+        x = F.relu(self.fc1(x), inplace=True)
+        x = F.relu(self.fc2(x), inplace=True)
+
+        return x
+
     @staticmethod
     def load_data():
         # classes of "CIFAR10"
@@ -41,27 +58,4 @@ class Example:
         train_loader = DataLoader(train_set, batch_size=8, shuffle=True, num_workers=0)
         test_loader = DataLoader(test_set, batch_size=8, shuffle=False, num_workers=0)
 
-        # print shapes of loaded data
-        for n, (img, labels) in enumerate(test_loader):
-            print(n, img.shape, labels.shape)
-
-        # show data's image in first batch
-        test_iter = iter(test_loader)
-        images, labels = test_iter.next()
-        Example.imshow(torchvision.utils.make_grid(images, nrow=4))
-        for label in labels:
-            print(classes[label])
-
-    @staticmethod
-    def imshow(img):
-        img = img / 2 + 0.5
-        np_img = img.numpy()    # C*H*W -> H*W*C
-        plt.imshow(np.transpose(np_img, (1, 2, 0)))
-        plt.show()
-
-        print(np_img.shape)
-        print(np.transpose(np_img, (1, 2, 0)).shape)
-
-
-if __name__ == '__main__':
-    Example.load_data()
+        return train_loader, test_loader

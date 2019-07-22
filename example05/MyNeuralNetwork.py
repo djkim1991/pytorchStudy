@@ -1,20 +1,27 @@
 '''
     writer: dororongju
-    github: https://github.com/djkim1991/pytorchStudy/issues/4
+    github: https://github.com/djkim1991/pytorchStudy/issues/5
 '''
-
+import torch
+import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
 import torchvision
 import torchvision.transforms as transforms
 
-import numpy as np
-import matplotlib.pyplot as plt
 
+class MyNeuralNetwork(nn.Module):
+    def __init__(self):
+        super(MyNeuralNetwork, self).__init__()
+        self.net_1 = nn.Conv2d(in_channels=3, out_channels=5, kernel_size=5)
+        self.net_2 = nn.Conv2d(in_channels=5, out_channels=10, kernel_size=5)
 
-class Example:
+    def forward(self, x):
+        x = self.net_1(x)
+        x = self.net_2(x)
 
-    # conv2d, example of torch.nn.functional
+        return x
+
     @staticmethod
     def load_data():
         # classes of "CIFAR10"
@@ -41,27 +48,4 @@ class Example:
         train_loader = DataLoader(train_set, batch_size=8, shuffle=True, num_workers=0)
         test_loader = DataLoader(test_set, batch_size=8, shuffle=False, num_workers=0)
 
-        # print shapes of loaded data
-        for n, (img, labels) in enumerate(test_loader):
-            print(n, img.shape, labels.shape)
-
-        # show data's image in first batch
-        test_iter = iter(test_loader)
-        images, labels = test_iter.next()
-        Example.imshow(torchvision.utils.make_grid(images, nrow=4))
-        for label in labels:
-            print(classes[label])
-
-    @staticmethod
-    def imshow(img):
-        img = img / 2 + 0.5
-        np_img = img.numpy()    # C*H*W -> H*W*C
-        plt.imshow(np.transpose(np_img, (1, 2, 0)))
-        plt.show()
-
-        print(np_img.shape)
-        print(np.transpose(np_img, (1, 2, 0)).shape)
-
-
-if __name__ == '__main__':
-    Example.load_data()
+        return train_loader, test_loader
