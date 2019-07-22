@@ -1,6 +1,6 @@
 '''
     writer: dororongju
-    github: https://github.com/djkim1991/pytorchStudy/issues/6
+    github: https://github.com/djkim1991/pytorchStudy/issues/7
 '''
 import torch.nn as nn
 import torch.nn.functional as F
@@ -14,21 +14,34 @@ class MyNeuralNetwork(nn.Module):
     def __init__(self):
         super(MyNeuralNetwork, self).__init__()
 
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5)
-        self.conv2 = nn.Conv2d(in_channels=64, out_channels=30, kernel_size=5)
-        self.fc1 = nn.Linear(in_features=30*5*5, out_features=128, bias=True)
-        self.fc2 = nn.Linear(in_features=128, out_features=10, bias=True)
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2)
+        )
+
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=30, kernel_size=5),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2)
+        )
+
+        self.layer3 = nn.Sequential(
+            nn.Linear(in_features=30*5*5, out_features=128, bias=True),
+            nn.ReLU(inplace=True)
+        )
+
+        self.layer4 = nn.Sequential(
+            nn.Linear(in_features=128, out_features=10, bias=True),
+            nn.ReLU(inplace=True)
+        )
 
     def forward(self, x):
-        x = F.relu(self.conv1(x), inplace=True)
-        x = F.max_pool2d(x, (2, 2))
-
-        x = F.relu(self.conv2(x), inplace=True)
-        x = F.max_pool2d(x, (2, 2))
-
+        x = self.layer1(x)
+        x = self.layer2(x)
         x = x.view(x.shape[0], -1)
-        x = F.relu(self.fc1(x), inplace=True)
-        x = F.relu(self.fc2(x), inplace=True)
+        x = self.layer3(x)
+        x = self.layer4(x)
 
         return x
 

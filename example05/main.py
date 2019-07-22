@@ -21,4 +21,4 @@ class Example:
 
 
 if __name__ == '__main__':
-    Example.myNeuralNetwork()
+    Example.forward_example()

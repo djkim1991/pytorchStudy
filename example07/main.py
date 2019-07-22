@@ -1,15 +1,15 @@
 '''
     writer: dororongju
-    github: https://github.com/djkim1991/pytorchStudy/issues/6
+    github: https://github.com/djkim1991/pytorchStudy/issues/7
 '''
-from example06.MyNeuralNetwork import MyNeuralNetwork
+from example07.MyNeuralNetwork import MyNeuralNetwork
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
 class Example:
     @staticmethod
-    def learning_example():
+    def sequential_example():
         network = MyNeuralNetwork()
         train_loader, test_loader = network.load_data()
 
@@ -57,4 +57,4 @@ class Example:
 
 
 if __name__ == '__main__':
-    Example.learning_example()
+    Example.sequential_example()

@@ -4,6 +4,7 @@ import example03.main as ex03
 import example04.main as ex04
 import example05.main as ex05
 import example06.main as ex06
+import example07.main as ex07
 
 # ex01.Example.introduce()
 
@@ -16,5 +17,7 @@ import example06.main as ex06
 
 # ex05.Example.forward_example()
 
-ex06.Example.learning_example()
+# ex06.Example.learning_example()
+
+ex07.Example.sequential_example()
 
