@@ -8,7 +8,7 @@ from torch.autograd import Variable
 
 class Example:
     @staticmethod
-    def forward_example():
+    def forward():
         network = MyNeuralNetwork()
         train_loader, test_loader = MyNeuralNetwork.load_data()
 
@@ -21,4 +21,4 @@ class Example:
 
 
 if __name__ == '__main__':
-    Example.forward_example()
+    Example.forward()

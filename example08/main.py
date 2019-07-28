@@ -1,20 +1,25 @@
 '''
     writer: dororongju
-    github: https://github.com/djkim1991/pytorchStudy/issues/6
+    github: https://github.com/djkim1991/pytorchStudy/issues/8
 '''
-from example06.MyNeuralNetwork import MyNeuralNetwork
+from example07.MyNeuralNetwork import MyNeuralNetwork
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
+import os
 
 class Example:
     @staticmethod
-    def learning():
+    def save_model():
         network = MyNeuralNetwork()
         train_loader, test_loader = network.load_data()
 
         optimizer = torch.optim.SGD(params=network.parameters(), lr=0.001, momentum=0.9)
         loss_function = nn.CrossEntropyLoss()
+
+        if os.path.isfile('cnn.pth'):
+            # load model
+            network.load_state_dict(torch.load('./cnn.pth'))
 
         epoch_size = 3
         for epoch in range(epoch_size):
@@ -38,6 +43,9 @@ class Example:
 
         print("train over")
 
+        # save model
+        torch.save(network.state_dict(), './cnn.pth')
+
         total = 0
         correct = 0
         for _, data in enumerate(test_loader):
@@ -57,4 +65,4 @@ class Example:
 
 
 if __name__ == '__main__':
-    Example.learning()
+    Example.save_model()

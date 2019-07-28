@@ -9,7 +9,7 @@ from torch.autograd import Variable
 
 class Example:
     @staticmethod
-    def sequential_example():
+    def sequential():
         network = MyNeuralNetwork()
         train_loader, test_loader = network.load_data()
 
@@ -57,4 +57,4 @@ class Example:
 
 
 if __name__ == '__main__':
-    Example.sequential_example()
+    Example.sequential()

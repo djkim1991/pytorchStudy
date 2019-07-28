@@ -5,6 +5,7 @@ import example04.main as ex04
 import example05.main as ex05
 import example06.main as ex06
 import example07.main as ex07
+import example08.main as ex08
 
 # ex01.Example.introduce()
 
@@ -15,9 +16,11 @@ import example07.main as ex07
 
 # ex04.Example.load_data()
 
-# ex05.Example.forward_example()
+# ex05.Example.forward()
 
-# ex06.Example.learning_example()
+# ex06.Example.learning()
 
-ex07.Example.sequential_example()
+# ex07.Example.sequential()
+
+ex08.Example.save_model()
 
